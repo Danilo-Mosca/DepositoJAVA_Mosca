@@ -3,40 +3,42 @@ import java.util.Scanner; // Importo la classe Scanner
 
 public class Gestionale {
 
+    // Rendo la variabile contatoreOperazioni una variabile globale e statica (cioè appartenente alla classe non agli oggetti e quindi condivisa da tutto il programma:
+    static int contatoreOperazioni = 0; 
+    // contatore che controlla il numero di operazioni eseguite (a 4 operazioni vieni buttato fuori e bisogn riloggarsi)
     // Metodo principale "main" punto di accesso principale alla classe
+
     public static void main(String[] args) {
         ArrayList<String> usernames = new ArrayList<>();
         ArrayList<String> passwords = new ArrayList<>();
-
         ArrayList<String> cronologia = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in); // Crea un oggetto Scanner che permette l'input da linea di comando
 
         String utenteLoggato = null; // variabile che controlla se l'utente è loggato
-        int contatoreOperazioni = 0; // contatore che controlla il numero di operazioni eseguite (a 4 operazioni
-                                     // vieni buttato fuori e bisogna riloggarsi)
-
         boolean esecuzioneProgramma = true;
 
         // Ciclo che gestisce l'esecuzione del programma
         while (esecuzioneProgramma) {
-            // SE NON LOGGATO: MENU AUTENTICAZIONE
+            // Se non loggato reindirizzo l'utente nel menu di autenticazione o
+            // registrazione
             if (utenteLoggato == null) {
 
                 String result = menuAutenticazione(usernames, passwords, scanner);
 
-                // controllo uscita programma
+                // controllo uscita programma: se scelgo di uscire modifico la variabile
+                // esecuzioneProgramma a false per permettere al ciclo while di terminare
                 if (result != null && result.equals("EXIT")) {
                     esecuzioneProgramma = false;
                 } else {
                     utenteLoggato = result;
                 }
             }
-            
-            // SE LOGGATO: CALCOLATRICE
+            // se l'utente è loggato richiamo la funzione menuCalcolatrice() per
+            // reindirizzare l'utente nel menu della calcolatrice
             else {
 
-                String result = menuCalcolatrice(usernames,passwords,cronologia,scanner,utenteLoggato,contatoreOperazioni);
+                String result = menuCalcolatrice(usernames, passwords, cronologia, scanner, utenteLoggato);
                 if (result == null) {
                     utenteLoggato = null;
                     contatoreOperazioni = 0;
@@ -124,22 +126,15 @@ public class Gestionale {
         return null;
     }
 
-    // ---------------- CALCOLATRICE ----------------
-
-    static String menuCalcolatrice(
-            ArrayList<String> usernames,
-            ArrayList<String> passwords,
-            ArrayList<String> cronologia,
-            Scanner scanner,
-            String utenteLoggato,
-            int contatoreOperazioni) {
+    // ---------------- CALCOLATRICE portale dell'interfaccia quando l'utente riesce a loggarsi ----------------
+    static String menuCalcolatrice(ArrayList<String> usernames,ArrayList<String> passwords,ArrayList<String> cronologia,Scanner scanner,String utenteLoggato) {
 
         if (contatoreOperazioni >= 4) {
-            System.out.println("\nHai fatto 4 operazioni. Devi riloggarti.");
+            System.out.println("Hai fatto 4 operazioni. Devi riloggarti.");
             return null;
         }
 
-        System.out.println("\n======== CALCOLATRICE ========");
+        System.out.println("======== CALCOLATRICE ========");
         System.out.println("Operazioni: " + contatoreOperazioni + "/4");
         System.out.println("1. Somma");
         System.out.println("2. Sottrazione");
@@ -180,7 +175,6 @@ public class Gestionale {
 
             case "7":
                 return null;
-
             default:
                 System.out.println("Scelta non valida");
         }
@@ -211,7 +205,7 @@ public class Gestionale {
         return nums;
     }
 
-    // ---------------- OPERAZIONI ----------------
+    // ---------------- Funzioni con operazioni matematiche ----------------
 
     static int somma(ArrayList<String> cronologia, Scanner scanner, int contatoreOperazioni) {
         double[] nums = inputNumbers(scanner);
@@ -291,7 +285,7 @@ public class Gestionale {
         return salva(cronologia, op, risultato, contatoreOperazioni);
     }
 
-    // ---------------- STORICO ----------------
+    // ---------------- Funzione contenente lo storico della cronologia ----------------
 
     static void mostraCronologia(ArrayList<String> cronologia) {
 
@@ -312,11 +306,5 @@ public class Gestionale {
         contatoreOperazioni++;
         System.out.println("Risultato: " + risultato);
         return contatoreOperazioni;
-    }
-
-    // ---------------- CONTATORE (SEMPLICE) ----------------
-
-    static int aggiornaContatore(int nuovaDimensione, int vecchio) {
-        return nuovaDimensione;
     }
 }
