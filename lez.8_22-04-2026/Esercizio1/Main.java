@@ -69,21 +69,22 @@ public class Main {
                     System.out.println("Hai inserito un valore non valido (inserisci 1 - 2 - 3)");
                     break;
             }
-            searchStudent = false;      //Prima di riavviare il ciclo reimposto searchStudent a false 
+            searchStudent = false; // Prima di riavviare il ciclo reimposto searchStudent a false
         } while (!isExist);
 
-        inputStudent.close();   // Chiudo lo Scanner "inputStudent" e libero le risorse
+        inputStudent.close(); // Chiudo lo Scanner "inputStudent" e libero le risorse
     }
 
     // Metodo statico che visualizza i dati dell'utente ricercato:
     public static void studentSelected(ArrayList<Studente> listaStudenti, int i) {
-        System.out.println("Lo studente selezionato è il seguente:\nNome: " + listaStudenti.get(i).getNome()
+        System.out.println("Lo studente selezionato è il seguente:\nID: " + listaStudenti.get(i).getidStudente()
+                + "\nNome: " + listaStudenti.get(i).getNome()
                 + "\nVoto: " + listaStudenti
                         .get(i).getVoto());
     }
 
     // Metodo statico che permette l'inserimento di un nuovo utente:
-    public static void insertStudent(ArrayList<Studente> listaStudenti, Scanner inputStudent){
+    public static void insertStudent(ArrayList<Studente> listaStudenti, Scanner inputStudent) {
         System.out.print("Inserisci il nome del nuovo studente: ");
         String student = inputStudent.nextLine();
 
@@ -94,8 +95,8 @@ public class Main {
             System.out.print("Hai inserito un voto non valido! Il voto deve essere compreso tra 0 e 10: ");
             vote = inputStudent.nextInt();
         }
-        
-        inputStudent.nextLine();    //pulizia buffer
+
+        inputStudent.nextLine(); // pulizia buffer
 
         Studente newStudent = new Studente(student, vote);
         listaStudenti.add(newStudent);
