@@ -30,7 +30,7 @@ public class Main {
         officina.aggiungiAuto(auto1);
         officina.aggiungiAuto(auto2);
 
-        // Stampo tutte le auto
-        officina.stampaAuto();
+        // Stampo tutte le auto utilizzando l'override del metodo toString() nella classe Officina
+        System.out.println(officina);
     }
 }
