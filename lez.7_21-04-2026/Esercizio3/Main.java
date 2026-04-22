@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner inputUtente = new Scanner(System.in); // Crea un oggetto Scanner
+        Scanner menuUtente = new Scanner(System.in); // Crea un secondo oggetto Scanner che riceverà in input la scelta
+                                                     // dell'utente al menù
 
         BankAccount utente1 = new BankAccount(); // Costruttore di default
         BankAccount utente2 = new BankAccount("Paolo Rossi", 100);
@@ -30,34 +32,60 @@ public class Main {
         listaTitolariAccount.add(utente6);
         listaTitolariAccount.add(utente7);
 
-        boolean isExist = false; // Variabile che conterrà true se l'utente viene trovato in modo da interrompere
-                                 // il "ciclo for" in anticipo
+        boolean isExist = false; // Variabile che conterrà true se l'utente viene trovato in modo da interrompere il "ciclo for" in anticipo
 
         // Variabile di appoggio che conterrà l'indice del titolare del conto corrente
         // se esistente:
         int indiceIsExist = -1; // Imposto -1 di default se nel caso non trovassi il nome dell'utente
         do {
-            System.out.print("Inserisci il nome del titolare del conto corrente: ");
-            String accountUtente = inputUtente.nextLine();  // Leggo un user input: nextLine() legge e accetta valori di tipo String.
-            
-            // For che controlla l'esistenza dell'utente:
-            for (int i = 0; i < listaTitolariAccount.size() && !isExist; i++) {
-                if (listaTitolariAccount.get(i).isUser(accountUtente)) {
-                    isExist = true; // Se l'utente viene trovato assegno true
-                    indiceIsExist = i; // Se l'utente esiste assegno la sua posizione nell'arrayList ad una variabile
-                                       // di appoggio così da accedervi successivamente
-                }
+            System.out.println("\n======== MENU ========");
+            System.out.println("1. Login");
+            System.out.println("2. Esci");
+            System.out.print("Scelta: ");
+            String sceltaUtente = menuUtente.nextLine(); // Leggo un user input: nextLine() legge e accetta valori di
+                                                         // tipo String
+
+            switch (sceltaUtente) {
+                case "1":
+
+                    System.out.print("Inserisci il nome del titolare del conto corrente: ");
+                    String accountUtente = inputUtente.nextLine(); // Leggo un user input: nextLine() legge e accetta
+                                                                   // valori di tipo String
+                    // For che controlla l'esistenza dell'utente:
+                    for (int i = 0; i < listaTitolariAccount.size() && !isExist; i++) {
+                        if (listaTitolariAccount.get(i).isUser(accountUtente)) {
+                            isExist = true; // Se l'utente viene trovato assegno true
+                            indiceIsExist = i; // Se l'utente esiste assegno la sua posizione nell'arrayList ad una
+                                               // variabile
+                                               // di appoggio così da accedervi successivamente
+                        }
+                    }
+                    // Se l'utente non esiste mando a schermo un messaggio:
+                    if (!isExist) {
+                        System.out.println("Titolare del conto corrente non trovato");
+                    } else {
+                        ingressoBankAccount(indiceIsExist, listaTitolariAccount);
+                    }
+                    break;
+
+                case "2":
+                    isExist = true; // Se chiedo di uscire, automaticamente la variabile verrà impostata a true per
+                                    // uscire dal ciclo
+                    break;
+
+                default:
+                    System.out.print("Hai inserito un valore non valido! Ritenta");
+                    break;
             }
 
-            // Se l'utente non esiste mando a schermo un messaggio:
-            if (!isExist) {
-                System.out.println("Titolare del conto corrente non trovato");
-            }
         } while (!isExist); // Ciclo infinito se l'utente non viene trovato. Simulo un bancomat che è sempre
                             // in attesa di qualcosa
 
         inputUtente.close(); // Chiudo lo Scanner "inputUtente" e libero le risorse
+        menuUtente.close(); // Chiudo lo Scanner "menuUtente" e libero le risorse
+    }
 
+    static void ingressoBankAccount(int indiceIsExist, ArrayList<BankAccount> listaTitolariAccount) {
         /*
          * Se il valore di indiceIsExist è diverso da -1 (il valore impostato da me di
          * default), allora significa che l'utente è stato trovato
@@ -70,5 +98,6 @@ public class Main {
         listaTitolariAccount.get(indiceIsExist).deposit(180);
         listaTitolariAccount.get(indiceIsExist).withdraw(80);
         listaTitolariAccount.get(indiceIsExist).displayBalance();
+
     }
 }
