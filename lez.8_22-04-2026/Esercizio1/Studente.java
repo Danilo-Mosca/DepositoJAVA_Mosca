@@ -24,11 +24,15 @@ Nel main:
 public class Studente {
     private String nome;
     private int voto;
-    private static int id = 1000;
+    private static int id = 0;
+    private int idStudente;
 
+    // Costruttore:
     public Studente(String nome, int voto) {
         this.nome = nome;
         this.voto = voto;
+        this.id++;          //ad ogni istanza incremento l'id statico
+        this.idStudente = this.id;      //e poi lo assegno incrementato ad ogni nuovo studente che si registra (così genero un contatore simulando l'id del database)
     }
 
     // Getter e setter:
@@ -50,6 +54,10 @@ public class Studente {
         } else {
             System.out.println("Errore nell'inserimento! Il voto deve essere compreso tra 0 e 10");
         }
+    }
+
+    public int getidStudente() {
+        return this.idStudente;
     }
 
     // Medoti:
