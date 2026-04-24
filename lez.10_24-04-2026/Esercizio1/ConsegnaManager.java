@@ -117,7 +117,7 @@ public class ConsegnaManager {
 
             // POLIMORFISMO: chiamata al metodo astratto:
             // se il "veicolo" corrente della classe astratta "VeicoloConsegna" è "Furgone" allora esegue il metodo Furgone.consegnaPacco()
-            // mentre se il "veicolo" corrente della classe astratta "VeicoloConsegna" è "Drobe" allora esegue il metodo Drone.consegnaPacco()
+            // mentre se il "veicolo" corrente della classe astratta "VeicoloConsegna" è "Drone" allora esegue il metodo Drone.consegnaPacco()
             veicolo.consegnaPacco(destinazione, peso);
 
             // Interfaccia
