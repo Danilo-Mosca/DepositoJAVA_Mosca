@@ -40,6 +40,6 @@ public class Studente extends Persona implements Registrabile {
 
     // Metodo stampaVoti():
     public void stampaVoti() {
-        System.out.println("Voti di " + getNome() + ": " + voti);
+        System.out.println("Voti di " + getNome() + ": " + this.voti);
     }
 }
