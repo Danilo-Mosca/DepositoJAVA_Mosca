@@ -166,10 +166,3 @@ java Main
 - Terminale o IDE (IntelliJ, Eclipse, VS Code)
 
 ---
-
-## 🚀 Possibili Miglioramenti
-
-- Gestione disponibilità risorse (prestato/non disponibile)
-- Persistenza dati (file o database)
-- Interfaccia grafica (JavaFX o Swing)
-- Sistema di autenticazione utenti
