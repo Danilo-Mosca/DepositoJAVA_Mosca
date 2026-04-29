@@ -18,11 +18,14 @@ Funzionalità:
     - Legare la possibilità di creare o richiamare un dato ad un Utente (Se voletesingleton ) 
 */
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
+        /* TEST FUNZIONAMENTO: */
+        System.out.println("PROVE FUNZIONAMENTO");
         // Creo l'instanza (se non esiste già) del Singleton DatabaseManager:
         DatabaseManager utenteConnesso1 = DatabaseManager.getIstanza();
         DatabaseManager utenteConnesso2 = DatabaseManager.getIstanza();
@@ -43,50 +46,101 @@ public class Main {
 
         // Stampo il numero totale di connessioni attuali:
         System.out.println("Numero di connessioni attuali a database: " + utenteConnesso1.getConnectionCount());
+        System.out.println("FINE PROVE FUNZIONAMENTO");
+        /* FINE TEST FUNZIONAMENTO */
 
         // Creo l'instanza Singleton di Database:
         Database database = Database.getIstanza();
 
         // Creo lo Scanner per l'input dell'utente:
         Scanner scanner = new Scanner(System.in);
-        boolean isRunning = true; // Variabile booleana che controlla l'esecuzione del ciclo
         do {
-            System.out.println("===== MENU DATABASE =====");
-            System.out.println("1. Salva un dato nel database");
-            System.out.println("2. Visualizza tutti i dati salvati nel database");
-            System.out.println("3. Esci");
+            System.out.println("\n===== MENU DATABASE =====");
+            System.out.println("1. Inserisci un nuovo utente nel database");
+            System.out.println("2. Modifica un utente nel database");
+            System.out.println("3. Elimina un utente nel database");
+            System.out.println("4. Visualizza un utente nel database");
+            System.out.println("5. Visualizza tutti gli utenti salvati nel database");
+            System.out.println("6. Rimuovi tutti gli utenti dal database");
+            System.out.println("7. Esci dal programma");
             System.out.print("Scegli: ");
 
             String sceltaUtente = scanner.nextLine();
             switch (sceltaUtente) {
                 case "1":
-                    System.out.print("Inserisci dato da salvare: ");
-                    String dato = scanner.nextLine();
-                    database.setDatabase(dato);
+                    System.out.print("Inserisci il nome del nuovo utente: ");
+                    String nomeAdd = scanner.nextLine();
+                    System.out.print("\nInserisci il cognome del nuovo utente: ");
+                    String cognomeAdd = scanner.nextLine();
+                    System.out.print("\nInserisci l'età del nuovo utente: ");
+                    int etaAdd = scanner.nextInt();
+                    scanner.nextLine(); // pulizia buffer
+                    Utente nuovoUtente = new Utente(nomeAdd, cognomeAdd, etaAdd);
+                    database.addUtente(nuovoUtente);
                     break;
 
                 case "2":
-                    if (database.getDatabase().size() > 0) {
-                        System.out.println("Dati presenti nel Database:");
-                        for (String datiSingoli : database.getDatabase()) {
-                            System.out.println("- " + datiSingoli);
-                        }
-                    } else {
-                        System.out.println("Il database non ha memorizzato nessun dato!");
-                    }
+                    System.out.print("Inserisci il nome dell'utente che vuoi modificare: ");
+                    String searchNome = scanner.nextLine();
+                    System.out.print("Inserisci il nuovo nome dell'utente: ");
+                    String nomeChange = scanner.nextLine();
+                    System.out.print("\nInserisci il nuovo cognome dell'utente: ");
+                    String cognomeChange = scanner.nextLine();
+                    System.out.print("\nInserisci la nuova età dell'utente: ");
+                    int etaChange = scanner.nextInt();
+                    scanner.nextLine(); // pulizia buffer
+                    Utente changeUtente = new Utente(nomeChange, cognomeChange, etaChange);
+                    database.changeSingleUtente(changeUtente, searchNome);
                     break;
 
                 case "3":
-                    isRunning = false;
+                    System.out.print("Inserisci il nome dell'utente che vuoi eliminare: ");
+                    String nomeDelete = scanner.nextLine();
+                    database.removeSingleUtente(nomeDelete);
                     break;
+
+                case "4":
+                    System.out.print("Inserisci il nome dell'utente che vuoi visualizzare: ");
+                    String nomeVisualizzato = scanner.nextLine();
+                    Utente utenteVisualizzato = database.getSingleUtente(nomeVisualizzato);
+                    if (utenteVisualizzato == null) {
+                        System.out.println("Nel database non esiste un utente di nome: " + nomeVisualizzato);
+                    } else {
+                        System.out.println("Nome: " + utenteVisualizzato.getNome() + " - Cognome: "
+                                + utenteVisualizzato.getCognome() + " - Età: " + utenteVisualizzato.getEta());
+                    }
+                    break;
+
+                case "5":
+                    if (database.getAllUtenti().isEmpty()) {
+                        System.out.println("Il database non ha memorizzato nessun utente!");
+                    } else {
+                        ArrayList<Utente> allUtenti = database.getAllUtenti();
+                        System.out.println("===== LISTA UTENTI PRESENTI NEL DATABASE =====");
+                        for (Utente utente : allUtenti) {
+                            System.out.println("Nome: " + utente.getNome() + " - Cognome: " + utente.getCognome()
+                                    + " - Età: " + utente.getEta());
+                        }
+                    }
+                    break;
+
+                case "6":
+                    if (database.getAllUtenti().isEmpty()) {
+                        System.out.println("Il database non ha memorizzato nessun utente!");
+                    } else {
+                        database.removeAll(); // Rimuovo tutti i dati presenti nel database
+                        System.out.println("Tutti i dati presenti nel database sono stati rimossi!");
+                    }
+                    break;
+
+                case "7":
+                    scanner.close(); // Chiudo lo scanner
+                    return; // Ed esco dal ciclo
 
                 default:
                     System.out.println("Scelta non valida! Inserisci un valore compreso tra 1 e 3");
                     break;
             }
-
-        } while (isRunning);
-
-        scanner.close();
+        } while (true);
     }
 }
