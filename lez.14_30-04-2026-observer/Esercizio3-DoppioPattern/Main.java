@@ -89,7 +89,7 @@ public class Main {
                     System.out.println("Scelta inserita non valida");
                     break;
             }
-            scanner.close();
         }
+        scanner.close();
     }
 }
