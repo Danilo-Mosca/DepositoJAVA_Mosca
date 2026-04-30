@@ -8,15 +8,18 @@ public class Utente implements Observer {
         this.cognome = cognome;
     }
 
+    // Override dei metodi nell'interfaccia:
     @Override
     public void aggiornamento(String messaggio) {
         System.out.println(this.nome + " " + this.cognome + " ha ricevuto una notifica: " + messaggio);
     }
 
-    public String getnome() {
+    @Override
+    public String getNome() {
         return this.nome;
     }
 
+    @Override
     public String getCognome() {
         return this.cognome;
     }

@@ -10,30 +10,86 @@ Ogni utente deve ricevere il messaggio dell'avviso e visualizzarlo con il propri
 Realizzare le classi necessarie e un metodo main che dimostri il funzionamento del sistema registrando alcuni utenti, inviando almeno due notifiche e rimuovendo almeno un utente prima dell'invio di una nuova notificha. 
 */
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
 
         // Creo il Subject osservabile S_GestoreNotifice con pattern Singleton:
-        S_GestoreNotifice gestoreNotifice = S_GestoreNotifice.getInstance();
+        S_GestoreNotifiche gestoreNotifiche = S_GestoreNotifiche.getInstance();
+        // Creo lo Scanner per l'input dell'utente:
+        Scanner scanner = new Scanner(System.in);
 
+        // /* ----------- TEST SENZA MENU UTENTE ----------- */
         // Creazione degli utenti:
-        Utente utente1 = new Utente("Danilo","Mosca");
-        Utente utente2 = new Utente("Paolo", "Rossi");
-        Utente utente3 = new Utente("Giovanni", "Verdi");
+        // Utente utente1 = new Utente("Danilo","Mosca");
+        // Utente utente2 = new Utente("Paolo", "Rossi");
+        // Utente utente3 = new Utente("Giovanni", "Verdi");
 
         // Iscrivo gli Utenti (osservatori) al Subject così da ricevere le notifiche:
-        gestoreNotifice.registraUtente(utente1);
-        gestoreNotifice.registraUtente(utente2);
-        gestoreNotifice.registraUtente(utente3);
+        // gestoreNotifiche.registraUtente(utente1);
+        // gestoreNotifiche.registraUtente(utente2);
+        // gestoreNotifiche.registraUtente(utente3);
 
-        gestoreNotifice.pubblicaAvviso("Prima notifica: Benvenuto! grazie per esserti iscritto");
-        System.out.println("==============================");
-        gestoreNotifice.pubblicaAvviso("Seconda notifica: questa è una seconda");
+        // gestoreNotifiche.pubblicaAvviso("Prima notifica: Benvenuto! grazie per
+        // esserti iscritto");
+        // System.out.println("==============================");
+        // gestoreNotifiche.pubblicaAvviso("Seconda notifica: questa è una seconda");
 
         // Rimozione di un utente:
-        gestoreNotifice.rimuoviUtente(utente3);
-        System.out.println("==============================");
-        gestoreNotifice.pubblicaAvviso("Un utente è stato rimosso!");
+        // gestoreNotifiche.rimuoviUtente(utente3);
+        // System.out.println("==============================");
+        // gestoreNotifiche.pubblicaAvviso("Un utente è stato rimosso!");
+        /* ----------- FINE TEST SENZA MENU UTENTE ----------- */
+
+        boolean isRunning = true;
+
+        while (isRunning) {
+            System.out.println("\n--- MENU PIATTAFORMA E-LEARNING ---");
+            System.out.println("1. Registra un utente");
+            System.out.println("2. Cancella un utente");
+            System.out.println("3. Invia una notifica");
+            System.out.println("4. Esci");
+            System.out.print("Scelta: ");
+
+            String scelta = scanner.nextLine();
+
+            switch (scelta) {
+                case "1":
+                    System.out.print("Nome nuovo utente: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Cognome nuovo utente: ");
+                    String cognome = scanner.nextLine();
+                    Utente nuovo = new Utente(nome, cognome);
+                    gestoreNotifiche.registraUtente(nuovo);
+                    System.out.println("Utente registrato!");
+                    break;
+
+                case "2":
+                    System.out.print("Nome dell'utente da rimuovere: ");
+                    String nomeRegistrato = scanner.nextLine();
+                    System.out.print("Cognome dell'utente da rimuovere: ");
+                    String cognomeRegistrato = scanner.nextLine();
+                    gestoreNotifiche.rimuoviUtente(nomeRegistrato, cognomeRegistrato);
+                    break;
+
+                case "3":
+                    System.out.print("Scrivi in messaggio da inviare: ");
+                    String messaggio = scanner.nextLine();
+                    gestoreNotifiche.pubblicaAvviso(messaggio);
+                    break;
+
+                case "4":
+                    isRunning = false;
+                    System.out.println("Uscita dal programma!");
+                    break;
+
+                default:
+                    System.out.println("Scelta inserita non valida");
+                    break;
+            }
+            scanner.close();
+        }
     }
 }
