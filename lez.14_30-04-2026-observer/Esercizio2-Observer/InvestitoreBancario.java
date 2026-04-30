@@ -1,4 +1,4 @@
-// Observer: oseervatore
+// Observer: osservatore
 public class InvestitoreBancario implements Investitore {
     private String name;
 
