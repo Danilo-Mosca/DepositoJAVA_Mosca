@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 
-public class Database {
+public class S_Database {
     // Istanza unica (Singleton) del Database:
-    private static Database istanzaDatabase;
+    private static S_Database istanzaDatabase;
     private ArrayList<Utente> listaUtenti; // ArrayList che conterrà tutti i dati salvati nel database
 
     // Costruttore privato per impedire l'istanziazione diretta:
-    private Database() {
+    private S_Database() {
         this.listaUtenti = new ArrayList<>(); // ArrayList contenente tutti i dati salvati nel database
     }
 
     // Metodo pubblico statico per ottenere (o creare nel caso non esistesse)
     // l'unica istanza della classe Database:
-    public static Database getIstanza() {
+    public static S_Database getIstanza() {
         // Se l'istanza non esiste, viene creata:
         if (istanzaDatabase == null) {
             // Se non esiste creo l'istanza di Database:
-            istanzaDatabase = new Database();
+            istanzaDatabase = new S_Database();
         }
         // Restituisce l'istanza esistente o appena creata
         return istanzaDatabase;

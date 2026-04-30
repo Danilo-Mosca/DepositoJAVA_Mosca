@@ -27,9 +27,9 @@ public class Main {
         /* TEST FUNZIONAMENTO: */
         System.out.println("PROVE FUNZIONAMENTO");
         // Creo l'instanza (se non esiste già) del Singleton DatabaseManager:
-        DatabaseManager utenteConnesso1 = DatabaseManager.getIstanza();
-        DatabaseManager utenteConnesso2 = DatabaseManager.getIstanza();
-        DatabaseManager utenteConnesso3 = DatabaseManager.getIstanza();
+        S_DatabaseManager utenteConnesso1 = S_DatabaseManager.getIstanza();
+        S_DatabaseManager utenteConnesso2 = S_DatabaseManager.getIstanza();
+        S_DatabaseManager utenteConnesso3 = S_DatabaseManager.getIstanza();
 
         // Dimostro che sto usando sempre lo stesso oggetto di DatabaseManager:
         if (utenteConnesso1 == utenteConnesso2) {
@@ -50,7 +50,7 @@ public class Main {
         /* FINE TEST FUNZIONAMENTO */
 
         // Creo l'instanza Singleton di Database:
-        Database database = Database.getIstanza();
+        S_Database database = S_Database.getIstanza();
 
         // Creo lo Scanner per l'input dell'utente:
         Scanner scanner = new Scanner(System.in);
