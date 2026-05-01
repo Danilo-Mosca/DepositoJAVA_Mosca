@@ -32,11 +32,11 @@ public class S_GestoreNotifiche implements Subject {
     }
 
     @Override
-    public void rimuoviUtente(String nomeRegistrato, String cognomeRegistrato) {
+    public void rimuoviUtente(Observer osservatore) {
         boolean trovato = false;
         for (Observer utente : utenti) {
-            if (utente.getNome().equalsIgnoreCase(nomeRegistrato)
-                    && utente.getCognome().equalsIgnoreCase(cognomeRegistrato)) {
+            if (utente.getNome().equalsIgnoreCase(osservatore.getNome())
+                    && utente.getCognome().equalsIgnoreCase(osservatore.getCognome())) {
                 this.utenti.remove(utente);
                 trovato = true;
                 break;
@@ -44,6 +44,8 @@ public class S_GestoreNotifiche implements Subject {
         }
         if (!trovato) {
             System.out.println("Non è stato possibile rimuovere l'utente. Utente non trovato");
+        } else {
+            System.out.println("Utente eliminato correttamente!");
         }
     }
 

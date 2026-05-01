@@ -71,7 +71,7 @@ public class Main {
                     String nomeRegistrato = scanner.nextLine();
                     System.out.print("Cognome dell'utente da rimuovere: ");
                     String cognomeRegistrato = scanner.nextLine();
-                    gestoreNotifiche.rimuoviUtente(nomeRegistrato, cognomeRegistrato);
+                    gestoreNotifiche.rimuoviUtente(new Utente(nomeRegistrato, cognomeRegistrato));
                     break;
 
                 case "3":
