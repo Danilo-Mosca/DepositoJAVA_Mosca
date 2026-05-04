@@ -11,9 +11,18 @@ public class Utente implements Observer {
         this.messaggio = messaggio;
     }
 
+    // Getter nome e cognome
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getCognome() {
+        return this.cognome;
+    }
+    
     // Override dei metodi nell'interfaccia
     @Override
-    public void update(String messaggioParametro){
+    public void update(String messaggioParametro) {
         this.messaggio.getContenuto(messaggioParametro);
         System.out.println(this.nome + " " + this.cognome + " messaggio: " + messaggio.getContenuto(
                 messaggioParametro));
