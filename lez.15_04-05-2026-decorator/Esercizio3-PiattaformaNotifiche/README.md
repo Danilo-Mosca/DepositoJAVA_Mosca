@@ -47,6 +47,7 @@ Esempio funzionale atteso:
 - Utente: implementa Observer: classe concreta di Observer (è la classe concreta degli osservatori)
 
 - Message: interfaccia del decoratore
+- MessageBaseDecorator: classe concreta dell'interfaccia Message
 - MessageDecorator: classe astratta che implementa l'interfaccia base Message
   - TimestampDecorator: classe concreta che estende la classe astratta MessageDecorator e implementa il messaggio con l'aggiunta dell'orario corrente
   - UppercaseDecorator: classe concreta che estende la classe astratta MessageDecorator e implementa il messaggio tutto in maiuscolo

@@ -1,4 +1,3 @@
-
 // GestioneNotifiche è sia il "Singleton" che il "Subject" degli Observer
 import java.util.ArrayList;
 import java.util.List;

@@ -36,9 +36,54 @@ Esempio funzionale atteso:
 - L’utente 3 non è più iscritto e non riceve nulla
 */
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        // Creo l'unica istanza istanza possibile (perché Singleton) del Subject
+        // (osservato): S_NotificationManager
+        S_NotificationManager gestoreNotifiche = S_NotificationManager.getInstance();
+        // Creo lo Scanner per l'input dell'utente
+        Scanner input = new Scanner(System.in);
+
+        boolean isTrue = true; // Variabile di controllo del ciclo
         
+        /* ---------- TEST FUNZIONAMENTO ---------- */
+        // Mi creo un primo messaggio base
+        Message messaggio1 = new MessageBaseDecorator();            // Messaggio base
+        // che a sua volta avrà un messaggio con data, in maiuscolo e con le emoji (quindi tutti e tre i decoratori):
+        messaggio1 = new TimestampDecorator(messaggio1);            // Messaggio base + timestamp
+        messaggio1 = new UppercaseDecorator(messaggio1);            // Messaggio base + timestamp + MIAUSCOLO
+        messaggio1 = new EmojiDecorator(messaggio1);                // Messaggio base + timestamp + MIAUSCOLO + emoji
+        // Mi creo un primo utente che avrà associato l'oggetto messaggio1 con tutti i suoi decoratori
+        Utente utente1 = new Utente("Danilo", "Mosca", messaggio1);
+
+        // Mi creo un secondo messaggio e un secondo utente che avrà il messaggio con il timestamp:
+        Message messaggio2 = new MessageBaseDecorator();            // Messaggio base
+        messaggio2 = new TimestampDecorator(messaggio2);            // Messaggio base + timestamp
+        // Mi creo un secondo utente che avrà associato l'oggetto messaggio2 con tutti il decoratore per il timestamp
+        Utente utente2 = new Utente("Luca", "Bianchi", messaggio2);
+
+        // Mi creo un terzo messaggio che avrà soltanto il messaggio base (cioè senza né timestamp, né maiuscolo, ne emoji):
+        Message messaggio3 = new MessageBaseDecorator();          // Messaggio base
+        // Mi creo un terzo utente che avrà associato l'oggetto messaggio3 con i relativi decoratori se presenti
+        Utente utente3 = new Utente("Anna", "Verdi", messaggio3);
+
+
+        // Registro gli utenti in modo che possano ricevere le notifiche dal sistema
+        gestoreNotifiche.addObserver(utente1);
+        gestoreNotifiche.addObserver(utente2);
+        gestoreNotifiche.addObserver(utente3);
+
+        // Invio una notifiche a tutti e tre gli utenti registrati (ognuno le vedrà in base al decorator associato o meno)
+        gestoreNotifiche.inviaNotifica("Ciao a tutti!");
+
+        // Rimuovo un utente
+        gestoreNotifiche.removeObserver(utente3);
+        // Invio nuovamente le notifiche per vedere come l'utente appena cancellato non riceverà nessuna modifica
+        gestoreNotifiche.inviaNotifica("L'utente 3 si è disiscritto");
+        /* ---------- FINE TEST FUNZIONAMENTO ---------- */
     }
 }

@@ -7,14 +7,9 @@ public abstract class MessageDecorator implements Message {
         this.decoratedMessage = message;
     }
 
-    // Sovrascrivo i metodi dell'interfaccia Coffee:
+    // Sovrascrivo i metodi dell'interfaccia Message:
     @Override
-    public void setContent(String content) {
-        this.decoratedMessage.setContent(content);
-    }
-
-    @Override
-    public String getContent() {
-        return this.decoratedMessage.getContent();
+    public String getContenuto(String contenuto) {
+        return this.decoratedMessage.getContenuto(contenuto);
     }
 }

@@ -36,5 +36,6 @@ public class Main {
         System.out.println("--------- Messaggio del decorator --------");
         msg = new DecoratoreMaiuscolo(msg);
         System.out.println("Messagio del decorator in maiuscolo: " + msg.getContenuto(testoMessaggio));
+        input.close();          //Chiudo lo scanner
     }
 }

@@ -1,4 +1,4 @@
-// Classe concreta che estende la classe astratta MessageDecorator
+// Classe concreta che estende la classe astratta MessageDecorator e aggiunge il decoratore al messaggio
 public class UppercaseDecorator extends MessageDecorator{
     // Costruttore
     public UppercaseDecorator(Message message){
@@ -7,15 +7,9 @@ public class UppercaseDecorator extends MessageDecorator{
 
     // Override dei metodi che "TimestampDecorator" eredita da "MessageDecorator" che a sua volta implementa da "Message"
     
-    // Metodo che setta tutto il messaggio in maiuscolo
+    // Metodo che setta e ritorna tutto il messaggio in maiuscolo
     @Override
-    public void setContent(String content) {
-        this.decoratedMessage.setContent(content.toUpperCase());
-    }
-
-    // Metodo che ritorna il messaggio modificato
-    @Override
-    public String getContent() {
-        return this.decoratedMessage.getContent();
+    public String getContenuto(String contenuto) {
+        return this.decoratedMessage.getContenuto(contenuto.toUpperCase());
     }
 }
