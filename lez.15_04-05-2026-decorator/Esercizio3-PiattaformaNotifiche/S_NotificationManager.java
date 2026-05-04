@@ -21,8 +21,7 @@ public class S_NotificationManager implements Subject{
         return uniqueInstance;          // Restituisce l'istanza esistente o appena creata
     }
 
-    // Metodi di registrazione e cancellazione di ricezione notifiche degli utenti:
-
+    /* --- Metodi di registrazione e cancellazione di ricezione notifiche degli utenti OBSERVER --- */
     // Aggiunta nuovo Observer (Utente)
     public void addObserver(Observer observer) {
         observers.add(observer);
