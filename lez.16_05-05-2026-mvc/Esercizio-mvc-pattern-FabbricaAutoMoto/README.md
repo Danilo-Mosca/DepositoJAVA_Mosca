@@ -20,9 +20,20 @@ Integrare i seguenti pattern:
 - MVC
     - Model ('insieme delle seguenti classi):
         - Veicolo (interfaccia)
-        - Auto, Moto
-        - Fabbrica (Singleton + Subject per Observer)
+        - Auto (classe Auto base che implementa Veicolo)
+        - Moto (classe Moto base che implementa Veicolo)
+        - S_Fabbrica (Singleton + Subject per Observer) implementa anche l'interfaccia:
+            - Subject
     - View:
-        - ConsoleView (Observer)
+        - ConsoleView (Observer) che a sua volta implementa l'interfaccia:
+            - Observer
     - Controller:
-        - FabbricaController
+        - FabbricaController (controller)
+
+- Decoratori:
+    - VeicoloDecorator (Decoratore base astratto che implementa l'interfaccia Veicolo)
+        - Navigatore (decoratore concreto che estende la classe astratta decorator "VeicoloDecorator")
+        - VerniciaturaSportiva (decoratore concreto che estende la classe astratta decorator "VeicoloDecorator")
+
+- Main:
+    - MainFabbrica (main/entrypoint del programma)
