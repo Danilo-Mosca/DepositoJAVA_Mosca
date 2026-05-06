@@ -55,6 +55,7 @@ public class FabbricaController {
     }
     
     // Metodo che mostra tutti i veicoli
+    // Non crea dati, non modifica dati, prende semplicemente i dati dal Model e li passa alla View, fa da coordinamento (se lo spostassi nella view violerei il principio di separazione delle responsabilità)
     public void caricaVeicoli(){
         // Richiamo il metodo mostraVeicoli() della View a cui passerà come paramentro il model.
         // Prendi i veicoli dalla fabbrica e passali alla view per stamparli

@@ -1,4 +1,5 @@
 // Classe VIEW (si occupa di mostrare i dati) e Observer, osservatore concreto
+// In questo caso la View si occupa semplicemente di stampare in console
 import java.util.List;
 
 public class ConsoleView implements Observer {
@@ -11,6 +12,6 @@ public class ConsoleView implements Observer {
     
     @Override
     public void update(String messaggio) {
-        System.out.println("AGGIORNAMENTO " + messaggio);
+        System.out.println("NOTIFICA DI AGGIORNAMENTO! " + messaggio);
     }
 }

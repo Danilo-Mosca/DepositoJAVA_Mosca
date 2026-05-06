@@ -43,10 +43,7 @@ public class S_Fabbrica implements Subject {
         }
     }
 
-    /*
-     * Metodi che aggiungono i veicoli prodotti all'arraylist listaVeicoli e che
-     * ritornano la lista dei veicoli prodotti
-     */
+    /* Metodi che aggiungono i veicoli prodotti all'arraylist listaVeicoli e che ritornano la lista dei veicoli prodotti */
     // Aggiungo il veicolo prodotto all'arraylist listaVeicoli
     public void produciVeicolo(Veicolo veicolo) {
         listaVeicoli.add(veicolo);
