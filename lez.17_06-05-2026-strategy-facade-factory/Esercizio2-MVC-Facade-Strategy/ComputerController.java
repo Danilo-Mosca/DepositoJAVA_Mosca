@@ -1,16 +1,16 @@
 // CONTROLLER collega Model e View
-public class Controller {
-    private Facade computerFacade = new Facade();
-    private View view = new View();
-    
+public class ComputerController {
+    private ComputerFacade computerFacade;
+    private ComputerView view;
+
     // Costruttore
-    public Controller(Facade computerFacade, View view){
+    public ComputerController(ComputerFacade computerFacade, ComputerView view) {
         this.computerFacade = computerFacade;
         this.view = view;
     }
 
     public void avvia() {
-        view.mostraMessaggio("Accensione del");
+        view.mostraMessaggio("Accensione del computer");
         computerFacade.accendiComputer();
         view.mostraMessaggio("Il computer è pronto per l'utilizzo");
     }

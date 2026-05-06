@@ -1,11 +1,18 @@
+// Context dello Strategy SistemaOperativoStrategy
 public class SistemaOperativoContext {
-    private Strategy strategy;
+    private SistemaOperativoStrategy strategy;
 
-    public void setStrategy(Strategy strategy) {
+    // Costruttore
+    public SistemaOperativoContext(SistemaOperativoStrategy strategy) {
         this.strategy = strategy;
     }
 
-    public void performTask() {
+    // Altri metodi
+    public void setStrategy(SistemaOperativoStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void avviaSistema() {
         strategy.avvia();
     }
 }
