@@ -1,9 +1,16 @@
+// Facade
 public class GestioneLuciFacade {
-    private LuceCamera camera = new LuceCamera();
-    private LuceCucina cucina = new LuceCucina();
+    private LuceCamera camera;
+    private LuceCucina cucina;
 
-    public void accendiEntrambe(){
-        camera.accendiLuceCamera();
-        cucina.accendiLuceCucina();
+    // Costruttore
+    public GestioneLuciFacade(){
+        camera = new LuceCamera();
+        cucina = new LuceCucina();
+    }
+
+    public void accendiTutte(){
+        camera.accendi();
+        cucina.accendi();
     }    
 }
