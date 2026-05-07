@@ -1,4 +1,9 @@
+package controller;
 // CONTROLLER collega Model e View
+
+import model.ComputerFacade;
+import view.ComputerView;
+
 public class ComputerController {
     private ComputerFacade computerFacade;
     private ComputerView view;

@@ -1,4 +1,8 @@
+package model.strategy;
 // Strategie concrete, implementazioni concrete di SistemaOperativoStrategy
+
+import model.SistemaOperativoStrategy;
+
 public class StrategyMacOs implements SistemaOperativoStrategy {
     @Override
     public void avvia() {

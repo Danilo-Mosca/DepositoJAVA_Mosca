@@ -1,3 +1,4 @@
+package model;
 // MODEL (classe base)
 public class HardDisk {
     public void carica() {

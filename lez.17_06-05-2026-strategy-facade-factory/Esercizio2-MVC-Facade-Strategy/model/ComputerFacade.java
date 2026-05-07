@@ -1,3 +1,4 @@
+package model;
 // Facade
 public class ComputerFacade {
     private Bios bios ;

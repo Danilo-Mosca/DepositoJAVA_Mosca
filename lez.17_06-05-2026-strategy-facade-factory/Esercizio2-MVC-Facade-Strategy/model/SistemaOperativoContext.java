@@ -1,3 +1,4 @@
+package model;
 // Context dello Strategy SistemaOperativoStrategy
 public class SistemaOperativoContext {
     private SistemaOperativoStrategy strategy;

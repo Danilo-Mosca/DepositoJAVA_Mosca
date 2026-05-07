@@ -1,5 +1,14 @@
 import java.util.Scanner;
 
+import controller.ComputerController;
+import model.ComputerFacade;
+import model.SistemaOperativoContext;
+import model.SistemaOperativoStrategy;
+import model.strategy.StrategyLinux;
+import model.strategy.StrategyMacOs;
+import model.strategy.StrategyWindows;
+import view.ComputerView;
+
 public class Main {
     public static void main(String[] args) {
 
