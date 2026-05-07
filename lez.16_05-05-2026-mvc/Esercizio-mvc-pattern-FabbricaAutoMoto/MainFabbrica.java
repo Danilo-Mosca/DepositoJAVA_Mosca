@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import controller.FabbricaController;
+import view.ConsoleView;
+
 public class MainFabbrica {
     public static void main(String[] args) {
         // Creo una istanza della View, che visualizzerà tutto in console

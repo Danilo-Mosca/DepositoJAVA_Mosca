@@ -1,3 +1,4 @@
+package model;
 // Fabbrica (Singleton + Subject per Observer)
 
 import java.util.List;

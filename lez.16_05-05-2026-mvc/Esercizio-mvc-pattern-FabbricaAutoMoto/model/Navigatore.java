@@ -1,4 +1,6 @@
+package model;
 // Decoratore concreto "Navigatore" che estende la classe astratta decorator "VeicoloDecorator"
+
 public class Navigatore extends VeicoloDecorator {
     // Costruttore
     public Navigatore(Veicolo veicolo){

@@ -1,4 +1,14 @@
+package controller;
 // Classe CONTROLLER (collega Model e View)
+
+import model.Auto;
+import model.Moto;
+import model.Navigatore;
+import model.S_Fabbrica;
+import model.Veicolo;
+import model.VerniciaturaSportiva;
+import view.ConsoleView;
+
 public class FabbricaController {
     private ConsoleView view;
     private S_Fabbrica model;
