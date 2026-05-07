@@ -12,7 +12,8 @@ public class DecoratorCacao extends DecoratorBevanda {
     }
     @Override
     public double getCosto() {
-        return bevanda.getCosto() + 0.5;
+        double costo = bevanda.getCosto() + 0.5d;
+        return Math.round(costo * 100.0) / 100.0;
     }
     // metodo per applicare la decorazione
     @Override

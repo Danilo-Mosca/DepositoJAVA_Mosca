@@ -10,6 +10,10 @@ public class MacchinettaView {
     
     //helper stampa bevanda
     private void stampaBevanda(Bevanda bevanda) {
+        if (bevanda == null) {
+            System.out.println("Nessuna bevanda creata. Crea una bevanda prima di visualizzarla.");
+            return;
+        }
         System.out.println(bevanda.getDescrizione());
         System.out.println(bevanda.getCosto());
     }

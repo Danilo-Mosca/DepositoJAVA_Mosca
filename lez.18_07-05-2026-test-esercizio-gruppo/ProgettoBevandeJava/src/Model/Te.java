@@ -5,7 +5,7 @@ public class Te implements Bevanda {
         return "Te nero";
     }
     public double getCosto() {
-        return 0.8;
+        return 0.8d;
     }
     
 }

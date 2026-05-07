@@ -5,7 +5,7 @@ public class Caffe implements Bevanda {
         return "Caffè dal brasile";
     }
     public double getCosto() {
-        return 1.5;
+        return 1d;
     }
     
 }

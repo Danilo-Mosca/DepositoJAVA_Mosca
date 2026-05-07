@@ -5,7 +5,7 @@ public class CioccolataCalda implements Bevanda {
         return "Cioccolata Calda fondente";
     }
     public double getCosto() {
-        return 1.5;
+        return 1.5d;
     }
     
 }
