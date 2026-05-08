@@ -33,6 +33,9 @@ public class TicketRepository {
 
     // Ritorna la lista dei ticket
     public List<Ticket> findAll() {
+        if (tickets.isEmpty()) {
+            return null;
+        }
         return tickets;
     }
 
@@ -46,12 +49,18 @@ public class TicketRepository {
     }
 
     // Elimina il ticket con l'id specificato dalla lista
-    public void delete(int id) {
+    public boolean delete(int id) {
+        boolean found = false;
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
                 tickets.remove(i);
-                return;
+                found = true;
+                break;
             }
         }
+        if (!found) {
+            return false;
+        }
+        return found;
     }
 }

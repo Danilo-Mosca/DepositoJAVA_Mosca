@@ -20,8 +20,13 @@ public class TicketFacade {
 
     // Metodo che mostra i ticket
     public void list() {
-        for (Ticket t : repo.findAll()) {
-            System.out.println(t);
+        // Se la lista è vuota
+        if (repo.findAll() == null) {
+            System.out.println("Nessun ticket da mostrare");
+        } else {
+            for (Ticket t : repo.findAll()) {
+                System.out.println(t);
+            }
         }
     }
 
@@ -31,12 +36,18 @@ public class TicketFacade {
         if (t != null) {
             t.setResolved(true);
             service.notifyAllObservers("Ticket risolto: " + t.getTitle());
+        } else {
+            System.out.println("Ticket non trovato");
         }
     }
 
     // Metodo che elimina il ticket
     public void delete(int id) {
-        repo.delete(id);
-        service.notifyAllObservers("Ticket eliminato ID: " + id);
+        boolean deleted = repo.delete(id);
+        if (deleted) {
+            service.notifyAllObservers("Ticket eliminato ID: " + id);
+        } else {
+            System.out.println("Ticket non trovato");
+        }
     }
 }
