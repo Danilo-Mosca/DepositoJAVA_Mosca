@@ -21,7 +21,8 @@ public class TicketFacade {
     // Metodo che mostra i ticket
     public void list() {
         // Se la lista è vuota
-        if (repo.findAll() == null) {
+        if (repo.findAll().isEmpty()) {
+            // Stampa messaggio di nessun ticket da mostrare
             System.out.println("Nessun ticket da mostrare");
         } else {
             for (Ticket t : repo.findAll()) {

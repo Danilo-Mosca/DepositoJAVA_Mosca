@@ -34,7 +34,7 @@ public class TicketRepository {
     // Ritorna la lista dei ticket
     public List<Ticket> findAll() {
         if (tickets.isEmpty()) {
-            return null;
+            return tickets; // Ritorna lista vuota se non ci sono ticket
         }
         return tickets;
     }

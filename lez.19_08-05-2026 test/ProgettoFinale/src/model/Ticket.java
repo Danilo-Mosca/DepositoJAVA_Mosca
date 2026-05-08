@@ -40,6 +40,6 @@ public class Ticket {
     // Ritorna i ticket da stampare in console
     @Override
     public String toString() {
-        return id + " - " + title + " | ticket risolto: " + resolved;
+        return id + " - " + title + " | Ticket risolto: " + resolved;
     }
 }
