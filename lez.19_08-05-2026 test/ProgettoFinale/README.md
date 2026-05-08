@@ -95,7 +95,7 @@ sistema.
 
 ------------------------------------------------------------------------
 
-### 🔹 Strategy (concettuale)
+### 🔹 Strategy
 
 Utilizzato per la gestione dei permessi USER / ADMIN tramite controllo
 logico nel controller.

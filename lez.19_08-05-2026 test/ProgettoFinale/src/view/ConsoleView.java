@@ -20,7 +20,7 @@ public class ConsoleView {
     // Avvio dell'applicazione
     public void start() {
 
-        login();    //Richiamo il metodo per mostrare il login
+        login(); // Richiamo il metodo per mostrare il login
 
         int choice = -1;
 
@@ -71,7 +71,8 @@ public class ConsoleView {
         }
     }
 
-    // Metodo che mostra il login e permette all'utente di inserire username, password e ruolo (USER o ADMIN) per accedere al sistema
+    // Metodo che mostra il login e permette all'utente di inserire username,
+    // password e ruolo (USER o ADMIN) per accedere al sistema
     private void login() {
 
         System.out.println("===== LOGIN =====");
@@ -82,15 +83,29 @@ public class ConsoleView {
         System.out.print("Password: ");
         String password = scanner.nextLine();
 
-        System.out.print("Ruolo (USER / ADMIN): ");
-        String role = scanner.nextLine();
+        // Controllo l'inserimento del ruolo per assicurarsi che sia valido (USER o
+        // ADMIN), e se non lo è, chiedo di inserirlo nuovamente finché non viene
+        // inserito un ruolo valido.
+        String role ="";
+        boolean isInvalidRole = true;
+        while (isInvalidRole) {
+            System.out.print("Ruolo (USER / ADMIN): ");
+            role = scanner.nextLine().toUpperCase();
+            if (role.equalsIgnoreCase("USER") || role.equalsIgnoreCase("ADMIN")) {
+                isInvalidRole = false;
+            } else {
+                System.out.println("Ruolo non valido. Inserisci USER o ADMIN!");
+            }
+        }
 
         currentUser = new User(username, password, role);
 
         System.out.println("Login effettuato come: " + role);
     }
 
-    // Metodo che permette la creazione di un nuovo ticket chiedendo all'utente di inserire il titolo e la descrizione del ticket, e poi chiama il controller per creare il ticket
+    // Metodo che permette la creazione di un nuovo ticket chiedendo all'utente di
+    // inserire il titolo e la descrizione del ticket, e poi chiama il controller
+    // per creare il ticket
     private void create() {
         System.out.print("Titolo: ");
         String title = scanner.nextLine();
@@ -101,14 +116,16 @@ public class ConsoleView {
         controller.create(currentUser, title, desc);
     }
 
-    // Metodo che permette la risoluzione di un ticket chiedendo all'utente di inserire l'ID del ticket, e poi chiama il controller per risolvere il ticket
+    // Metodo che permette la risoluzione di un ticket chiedendo all'utente di
+    // inserire l'ID del ticket, e poi chiama il controller per risolvere il ticket
     private void resolve() {
         System.out.print("ID ticket: ");
         int id = scanner.nextInt();
         controller.resolve(currentUser, id);
     }
 
-    // Metodo che permette l'eliminazione di un ticket chiedendo all'utente di inserire l'ID del ticket, e poi chiama il controller per eliminare il ticket
+    // Metodo che permette l'eliminazione di un ticket chiedendo all'utente di
+    // inserire l'ID del ticket, e poi chiama il controller per eliminare il ticket
     private void delete() {
         System.out.print("ID ticket: ");
         int id = scanner.nextInt();
