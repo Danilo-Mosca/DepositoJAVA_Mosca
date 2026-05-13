@@ -23,21 +23,29 @@ import com.example.demoruncontroller.run.Location;
 public class RunController {
 
     // Lista in memoria (simula un database)
-    private final List<Run> runs = new ArrayList<>(
-            List.of(new Run(1, "Corsa mattutina", LocalDateTime.of(2026, 5, 13, 8, 00),
-                    LocalDateTime.of(2026, 5, 13, 10, 30), 5.0, Location.OUTDOOR),
+    private final List<Run> runs = new ArrayList<>();
 
-                    new Run(1, "Corsa pomeridiala", LocalDateTime.of(2026, 5, 13, 18, 00),
-                            LocalDateTime.of(2026, 5, 13, 19, 00), 3.0, Location.INDOOR),
+    //Old code:
+    // private final List<Run> runs = new ArrayList<>(
+    //         List.of(new Run(1, "Corsa mattutina", LocalDateTime.of(2026, 5, 13, 8, 00),
+    //                 LocalDateTime.of(2026, 5, 13, 10, 30), 5.0, Location.OUTDOOR),
 
-                    new Run(1, "Corsa serale", LocalDateTime.of(2026, 5, 13, 21, 00),
-                            LocalDateTime.of(2026, 5, 13, 22, 30), 2.0, Location.OUTDOOR))
+    //                 new Run(2, "Corsa pomeridiana", LocalDateTime.of(2026, 5, 13, 18, 00),
+    //                         LocalDateTime.of(2026, 5, 13, 19, 00), 3.0, Location.INDOOR),
 
-    );
+    //                 new Run(3, "Corsa serale", LocalDateTime.of(2026, 5, 13, 21, 00),
+    //                         LocalDateTime.of(2026, 5, 13, 22, 30), 2.0, Location.OUTDOOR)));
 
     // Dati iniziali caricati nel costruttore
     public RunController() {
+        runs.add(new Run(1, "Corsa mattutina", LocalDateTime.of(2026, 5, 13, 8, 00),
+                LocalDateTime.of(2026, 5, 13, 10, 30), 5.0, Location.OUTDOOR));
 
+        runs.add(new Run(2, "Corsa pomeridiana", LocalDateTime.of(2026, 5, 13, 18, 00),
+                LocalDateTime.of(2026, 5, 13, 19, 00), 3.0, Location.INDOOR));
+
+        runs.add(new Run(3, "Corsa serale", LocalDateTime.of(2026, 5, 13, 21, 00),
+                LocalDateTime.of(2026, 5, 13, 22, 30), 2.0, Location.OUTDOOR));
     }
 
     // GET /api/runs → lista di tutte le corse
@@ -49,6 +57,11 @@ public class RunController {
     // GET /api/runs/{id} → singola corsa per ID
     @GetMapping("/{id}")
     public ResponseEntity<Run> findById(@PathVariable Integer id) {
+        if (id < 0 || id >= runs.size()) {
+            // Restituisco 404 Not Found senza body
+            return ResponseEntity.notFound().build();
+        }
+        // Restituisce 200 Ok la corsa è stata trovata
         return ResponseEntity.ok(runs.get(id));
 
     }
@@ -70,10 +83,10 @@ public class RunController {
     // DELETE /api/runs/{id} → elimina una corsa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if(id <0 || id >= runs.size()){
+        if (id < 0 || id >= runs.size()) {
             return ResponseEntity.notFound().build();
         }
-        runs.remove(id);
+        runs.remove((int) id); // Devo fare il casting a intero primitivo altrimenti non funziona
         return ResponseEntity.noContent().build();
 
     }
