@@ -25,16 +25,16 @@ public class RunController {
     // Lista in memoria (simula un database)
     private final List<Run> runs = new ArrayList<>();
 
-    //Old code:
+    // Old code:
     // private final List<Run> runs = new ArrayList<>(
-    //         List.of(new Run(1, "Corsa mattutina", LocalDateTime.of(2026, 5, 13, 8, 00),
-    //                 LocalDateTime.of(2026, 5, 13, 10, 30), 5.0, Location.OUTDOOR),
+    // List.of(new Run(1, "Corsa mattutina", LocalDateTime.of(2026, 5, 13, 8, 00),
+    // LocalDateTime.of(2026, 5, 13, 10, 30), 5.0, Location.OUTDOOR),
 
-    //                 new Run(2, "Corsa pomeridiana", LocalDateTime.of(2026, 5, 13, 18, 00),
-    //                         LocalDateTime.of(2026, 5, 13, 19, 00), 3.0, Location.INDOOR),
+    // new Run(2, "Corsa pomeridiana", LocalDateTime.of(2026, 5, 13, 18, 00),
+    // LocalDateTime.of(2026, 5, 13, 19, 00), 3.0, Location.INDOOR),
 
-    //                 new Run(3, "Corsa serale", LocalDateTime.of(2026, 5, 13, 21, 00),
-    //                         LocalDateTime.of(2026, 5, 13, 22, 30), 2.0, Location.OUTDOOR)));
+    // new Run(3, "Corsa serale", LocalDateTime.of(2026, 5, 13, 21, 00),
+    // LocalDateTime.of(2026, 5, 13, 22, 30), 2.0, Location.OUTDOOR)));
 
     // Dati iniziali caricati nel costruttore
     public RunController() {
@@ -70,19 +70,28 @@ public class RunController {
     @PostMapping
     public ResponseEntity<Run> create(@RequestBody Run newRun) {
         runs.add(newRun);
+        // Restituisce 201 Created con il prodotto appena creato
         return ResponseEntity.status(HttpStatus.CREATED).body(newRun);
     }
 
     // PUT /api/runs/{id} → aggiorna una corsa esistente
     @PutMapping("/{id}")
     public ResponseEntity<Run> update(@PathVariable Integer id, @RequestBody Run updatedRun) {
-        runs.set(id, updatedRun);
-        return ResponseEntity.status(HttpStatus.CREATED).body(updatedRun);
+        // Se lo trovo nell'arrayList runs lo aggiorno
+        for (int i = 0; i < runs.size(); i++) {
+            if (runs.get(i).id().equals(id)) {
+                runs.set(i, updatedRun);
+                return ResponseEntity.ok(updatedRun);
+            }
+        }
+        // Altrimenti invio un errore
+        return ResponseEntity.notFound().build();
     }
 
     // DELETE /api/runs/{id} → elimina una corsa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        //Se l'id inserito esiste, elimino il campo
         if (id < 0 || id >= runs.size()) {
             return ResponseEntity.notFound().build();
         }
