@@ -1,0 +1,78 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Book;
+import com.example.demo.repository.BookRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    // GET /api/books → lista di tutte i libri
+    @GetMapping
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
+    // GET /api/books/{id} → singolo libro per ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> findById(@PathVariable Integer id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    // POST /api/books → crea un nuovo libro
+    @PostMapping
+    public ResponseEntity<Book> create(@RequestBody Book newBook) {
+        Book saved = bookRepository.save(newBook);
+        // Restituisce 201 Created con il prodotto appena creato
+        return ResponseEntity.status(201).body(saved);
+    }
+
+    // PUT /api/books/{id} → aggiorna un libro esistente
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> update(@PathVariable Integer id, @RequestBody Book bookDetails) {
+        Optional<Book> existing = bookRepository.findById(id);
+        if (existing.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Book book = existing.get();
+        book.setTitle(bookDetails.getTitle());
+        book.setAuthor(bookDetails.getAuthor());
+        book.setPages(bookDetails.getPages());
+        book.setGenre(bookDetails.getGenre());
+        Book update = bookRepository.save(book);
+        return ResponseEntity.ok(update);
+    }
+
+    // DELETE /api/books/{id} → elimina un libro
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        if(!bookRepository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        bookRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}
