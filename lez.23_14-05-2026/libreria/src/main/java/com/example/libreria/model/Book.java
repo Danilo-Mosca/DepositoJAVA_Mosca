@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.libreria.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "books")
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -81,9 +82,10 @@ public class Book {
         this.genre = genre;
     }
 
-    //Override del metodo toString()
+    // Override del metodo toString()
     @Override
     public String toString() {
-        return "Run{id=" + id + ", title='" + title + "', author=" + author + ", pages=" + pages + ", genre=" + genre + "}";
+        return "Run{id=" + id + ", title='" + title + "', author=" + author + ", pages=" + pages + ", genre=" + genre
+                + "}";
     }
 }

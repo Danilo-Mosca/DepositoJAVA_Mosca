@@ -1,10 +1,4 @@
-package com.example.demo.controller;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.model.Book;
-import com.example.demo.repository.BookRepository;
+package com.example.libreria.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.libreria.model.Book;
+import com.example.libreria.model.Genre;
+import com.example.libreria.repository.BookRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -24,6 +24,7 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
+    //Costruttore
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -34,11 +35,30 @@ public class BookController {
         return bookRepository.findAll();
     }
 
+    // Metodo che recupera il singolo libro per id
     // GET /api/books/{id} → singolo libro per ID
     @GetMapping("/{id}")
     public ResponseEntity<Book> findById(@PathVariable Integer id) {
         Optional<Book> book = bookRepository.findById(id);
         return book.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    // Metodo che recupera i libri per titolo
+    @GetMapping("/titolo/{title}")
+    public List<Book> getBookByTitle(@PathVariable String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    // Metodo che recupera i libri per genere
+    @GetMapping("/genere/{genre}")
+    public List<Book> getBooksByGenre(@PathVariable Genre genre) {
+        return bookRepository.findByGenre(genre);
+    }
+
+    // Metodo che recupera i libri per autore
+    @GetMapping("/autore/{author}")
+    public List<Book> getBooksByAuthor(@PathVariable String author) {
+        return bookRepository.findByAuthor(author);
     }
 
     // POST /api/books → crea un nuovo libro
@@ -68,8 +88,8 @@ public class BookController {
 
     // DELETE /api/books/{id} → elimina un libro
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        if(!bookRepository.existsById(id)){
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (!bookRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         bookRepository.deleteById(id);
