@@ -15,7 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book>findAll();
     
     // metodo per recuperare un libro dal titolo
-    List<Book> findByTitle(String title);
+    Optional<Book> findByTitle(String title);
 
     // metodo per recuperare una lista di libri dal genere
     List<Book> findByGenre(Genre genre);

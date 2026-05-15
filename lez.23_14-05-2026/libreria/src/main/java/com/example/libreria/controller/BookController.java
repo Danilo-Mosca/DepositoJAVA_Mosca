@@ -24,7 +24,7 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
-    //Costruttore
+    // Costruttore
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -45,20 +45,31 @@ public class BookController {
 
     // Metodo che recupera i libri per titolo
     @GetMapping("/titolo/{title}")
-    public List<Book> getBookByTitle(@PathVariable String title) {
-        return bookRepository.findByTitle(title);
+    public ResponseEntity<Book> getBookByTitle(@PathVariable String title) {
+        Optional<Book> book = bookRepository.findByTitle(title);
+        return book.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // Metodo che recupera i libri per genere
     @GetMapping("/genere/{genre}")
-    public List<Book> getBooksByGenre(@PathVariable Genre genre) {
-        return bookRepository.findByGenre(genre);
+    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable Genre genre) {
+        List<Book> books = bookRepository.findByGenre(genre);
+
+        if (books.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(books);
     }
 
     // Metodo che recupera i libri per autore
     @GetMapping("/autore/{author}")
-    public List<Book> getBooksByAuthor(@PathVariable String author) {
-        return bookRepository.findByAuthor(author);
+    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String author) {
+        List<Book> books = bookRepository.findByAuthor(author);
+
+        if (books.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(books);
     }
 
     // POST /api/books → crea un nuovo libro
@@ -72,16 +83,20 @@ public class BookController {
     // PUT /api/books/{id} → aggiorna un libro esistente
     @PutMapping("/{id}")
     public ResponseEntity<Book> update(@PathVariable Integer id, @RequestBody Book bookDetails) {
+        // Controllo l'esistenza di quella riga nel database
         Optional<Book> existing = bookRepository.findById(id);
+        // se non trova il libro da agiornare, restituisce errore
         if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
+        // Visto che existing non è vuoto prendo il body di della riga della Run da modificare e lo salvo in nella variabile run
         Book book = existing.get();
+        // Setto i campi di run con i nuovi valori ricevuti dalla @RequestBody Run updateRun
         book.setTitle(bookDetails.getTitle());
         book.setAuthor(bookDetails.getAuthor());
         book.setPages(bookDetails.getPages());
         book.setGenre(bookDetails.getGenre());
+        // Salvo nel database
         Book update = bookRepository.save(book);
         return ResponseEntity.ok(update);
     }
