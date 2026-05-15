@@ -110,4 +110,11 @@ public class BookController {
         bookRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    // GET /api/runs/search?author=nomeAutore&title=nomeTitolo -> ricerca per query string
+    @GetMapping("/search")
+    public ResponseEntity<Book> search(@RequestParam String author, @RequestParam String title ) {
+        Optional<Book> book = bookRepository.findBookByAuthorAndTitle(author, title);
+        return book.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 }

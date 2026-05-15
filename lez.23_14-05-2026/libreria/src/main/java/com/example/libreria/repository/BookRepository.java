@@ -32,6 +32,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     //recupera libri per numero pagine
     List<Book> findByPages(Integer pages);
 
+    @Query("SELECT r FROM Book r WHERE r.author = :author AND r.title = :title ORDER BY r.author ASC")
+    Optional<Book> findBookByAuthorAndTitle(@Param("author") String author, @Param("title") String title);
+
     // JPQL: usa "Book" (nome classe) e "r.location" (nome campo Java)
     // @Query("SELECT r FROM Book r WHERE r.author = :author ORDER BY r.author ASC")
     // List<Book> findByAuthor(@Param("author") String author);
