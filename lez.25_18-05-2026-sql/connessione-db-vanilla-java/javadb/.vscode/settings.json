@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Danko\\Desktop\\corso-java-masamune\\esercizi\\lez.25_18-05-2026-sql\\Esercizio 4 creare connessione db java\\mysql-connector-j-9.7.0.jar",
+        "mysql-connector-j-9.7.0.jar"
+    ]
+}
