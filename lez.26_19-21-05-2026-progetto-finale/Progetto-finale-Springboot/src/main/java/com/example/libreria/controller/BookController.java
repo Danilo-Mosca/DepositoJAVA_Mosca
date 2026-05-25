@@ -115,8 +115,13 @@ public class BookController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         bookService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Libro eliminato con successo!");
-        //return ResponseEntity.noContent().build();
+        //return ResponseEntity.status(HttpStatus.OK).body("Libro eliminato con successo!");
+        
+        //Una volta eliminato il libro con quel determinato id utilizzare questa return:
+        //return ResponseEntity.ok(Map.of("message", "Libro eliminato", "id", id));
+        
+        // Oppure ancora meglio questa riga di seguito perché generalmente una DELETE riuscita non deve restituire un body:
+        return ResponseEntity.noContent().build();
     }
 
     // GET cerca per query

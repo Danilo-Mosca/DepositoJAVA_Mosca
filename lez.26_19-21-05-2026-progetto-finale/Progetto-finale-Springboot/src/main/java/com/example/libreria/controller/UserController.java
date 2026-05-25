@@ -173,11 +173,14 @@ public class UserController {
     // DELETE /api/users/{id}
     // Elimina un utente tramite id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
         // Richiama il service
         userService.delete(id);
-        // Restituisce status 204 NO CONTENT
+
+        //Una volta eliminato l'utente con quello specifico id ritornare questo:
+        //return ResponseEntity.ok(Map.of("message", "Utente eliminato", "id", id));
+        
+        // Oppure ancora meglio, siccome una delete restituisce status 204 NO CONTENT, perché generalmente una DELETE riuscita non deve restituire un body. Allora ritornare quanto di seguito:
         return ResponseEntity.noContent().build();
     }
 
