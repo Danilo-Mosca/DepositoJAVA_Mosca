@@ -41,7 +41,7 @@ public class ProdottoService {
     // Metodo che stampa ogni prodotto con il prezzo scontato
     public void stampaCatalogo(int percentualeSconto) {
         System.out.println("================================================================");
-        System.out.println("================ CATALOGO PRODOTTI - Sconto: 20% ===============");
+        System.out.println("================ CATALOGO PRODOTTI - Sconto: " + percentualeSconto + "% ===============");
         System.out.println("================================================================");
 
         // Ciclo con un foreach per restituire tutti i prodotti con i prezzo scontato

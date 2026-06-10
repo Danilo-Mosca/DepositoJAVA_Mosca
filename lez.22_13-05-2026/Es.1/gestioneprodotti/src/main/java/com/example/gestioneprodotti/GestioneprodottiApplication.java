@@ -20,6 +20,7 @@ public class GestioneprodottiApplication {
 	CommandLineRunner runner(ProdottoService prodottoService) {
 		return args -> {
 			prodottoService.stampaCatalogo(20);
+			prodottoService.stampaCatalogo(10);
 		};
 	}
 }
